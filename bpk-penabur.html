@@ -1,0 +1,1238 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#0c0a09" />
+<title>BPK PENABUR — Where Faith Meets Excellence</title>
+<meta name="description" content="Sekolah Kristen BPK PENABUR — Membentuk generasi beriman, berintegritas, dan berprestasi sejak 1950." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,600;1,9..144,800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- GSAP + ScrollTrigger + Lenis -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+
+<style>
+/* ==============================================================
+   RESET & ROOT
+   ============================================================== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+html{-webkit-text-size-adjust:100%;scroll-behavior:auto}
+img,svg,video{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+
+:root{
+  --ink:#0c0a09;
+  --ink-2:#1a1613;
+  --paper:#f3ece0;
+  --paper-2:#eadfc9;
+  --wine:#6b0f1a;
+  --wine-deep:#4a0a12;
+  --wine-soft:#8c1624;
+  --gold:#c9a15a;
+  --gold-soft:#e6c98a;
+  --red:#b8131f;
+  --muted:rgba(243,236,224,.55);
+  --muted-ink:rgba(12,10,9,.55);
+  --line:rgba(243,236,224,.14);
+  --line-ink:rgba(12,10,9,.14);
+
+  --f-display:"Fraunces", ui-serif, Georgia, serif;
+  --f-body:"Inter", system-ui, -apple-system, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, monospace;
+
+  --ease:cubic-bezier(.77,0,.175,1);
+}
+
+html,body{background:var(--ink);color:var(--paper);font-family:var(--f-body);font-weight:400;line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
+
+::selection{background:var(--wine);color:var(--paper)}
+
+/* ==============================================================
+   SCROLLBAR
+   ============================================================== */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--wine);border-radius:10px}
+
+/* ==============================================================
+   UTIL / LAYOUT
+   ============================================================== */
+.container{max-width:1440px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+.grid{display:grid;gap:clamp(20px,3vw,40px)}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.eyebrow::before{content:"";width:32px;height:1px;background:currentColor;opacity:.7}
+
+.btn{
+  display:inline-flex;align-items:center;gap:14px;padding:16px 28px;
+  border:1px solid var(--paper);border-radius:999px;
+  font-family:var(--f-mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--paper);background:transparent;
+  transition:background .5s var(--ease),color .5s var(--ease),border-color .5s var(--ease),transform .5s var(--ease);
+  position:relative;overflow:hidden;isolation:isolate;
+}
+.btn::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:var(--paper);transform:translateY(101%);transition:transform .6s var(--ease);
+}
+.btn:hover{color:var(--ink);border-color:var(--paper)}
+.btn:hover::before{transform:translateY(0)}
+.btn .arr{width:14px;height:14px;transition:transform .5s var(--ease)}
+.btn:hover .arr{transform:translateX(4px)}
+
+.btn.dark{color:var(--ink);border-color:var(--ink)}
+.btn.dark::before{background:var(--ink)}
+.btn.dark:hover{color:var(--paper)}
+
+.btn.gold{color:var(--ink);border-color:var(--gold);background:var(--gold)}
+.btn.gold::before{background:var(--ink)}
+.btn.gold:hover{color:var(--gold)}
+
+/* ==============================================================
+   CUSTOM CURSOR
+   ============================================================== */
+.cursor{
+  position:fixed;top:0;left:0;width:12px;height:12px;border-radius:50%;
+  background:var(--gold);pointer-events:none;z-index:9999;mix-blend-mode:difference;
+  transform:translate(-50%,-50%);transition:width .35s var(--ease),height .35s var(--ease),background .3s var(--ease);
+}
+.cursor-ring{
+  position:fixed;top:0;left:0;width:40px;height:40px;border-radius:50%;
+  border:1px solid var(--paper);pointer-events:none;z-index:9998;mix-blend-mode:difference;
+  transform:translate(-50%,-50%);transition:width .4s var(--ease),height .4s var(--ease),border-color .3s var(--ease);
+}
+.cursor.hover{width:4px;height:4px}
+.cursor-ring.hover{width:70px;height:70px;border-color:var(--gold)}
+@media (max-width:900px){ .cursor,.cursor-ring{display:none} }
+
+/* ==============================================================
+   PRELOADER
+   ============================================================== */
+.preloader{
+  position:fixed;inset:0;z-index:10000;background:var(--ink);
+  display:grid;place-items:center;overflow:hidden;
+}
+.preloader .pl-wrap{width:100%;padding:0 40px;display:flex;flex-direction:column;gap:28px;align-items:stretch}
+.preloader .pl-top{display:flex;justify-content:space-between;align-items:end;font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.preloader .pl-brand{font-family:var(--f-display);font-weight:300;font-style:italic;font-size:clamp(48px,9vw,140px);line-height:.95;letter-spacing:-.02em;color:var(--paper);overflow:hidden}
+.preloader .pl-brand span{display:inline-block;transform:translateY(110%)}
+.preloader .pl-bar{height:1px;background:var(--line);overflow:hidden}
+.preloader .pl-bar i{display:block;height:100%;width:0;background:var(--gold)}
+.preloader .pl-count{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;color:var(--muted)}
+.preloader .pl-count b{color:var(--paper);font-weight:500}
+
+/* ==============================================================
+   NAV
+   ============================================================== */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  padding:22px clamp(20px,4vw,56px);
+  display:flex;align-items:center;justify-content:space-between;
+  mix-blend-mode:difference;color:var(--paper);
+}
+.nav .brand{display:flex;align-items:center;gap:12px;font-family:var(--f-display);font-weight:600;letter-spacing:.04em;font-size:14px}
+.nav .brand .dot{width:10px;height:10px;border-radius:50%;background:var(--red);box-shadow:0 0 0 4px rgba(184,19,31,.25)}
+.nav ul{display:flex;gap:32px;list-style:none}
+.nav ul a{font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;position:relative}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-6px;width:100%;height:1px;background:currentColor;transform-origin:right;transform:scaleX(0);transition:transform .5s var(--ease)}
+.nav ul a:hover::after{transform-origin:left;transform:scaleX(1)}
+.nav .menu-btn{display:none}
+.nav .cta{font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.nav .cta::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold)}
+
+@media (max-width:900px){
+  .nav ul{display:none}
+  .nav .cta{display:none}
+  .nav .menu-btn{display:block;font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase}
+}
+
+/* ==============================================================
+   HERO
+   ============================================================== */
+.hero{
+  position:relative;min-height:100svh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:140px clamp(20px,4vw,56px) 56px;
+  overflow:hidden;
+  background:
+    radial-gradient(1200px 600px at 80% 10%, rgba(184,19,31,.18), transparent 60%),
+    radial-gradient(900px 500px at 10% 90%, rgba(201,161,90,.12), transparent 55%),
+    var(--ink);
+}
+.hero .grain{position:absolute;inset:0;pointer-events:none;opacity:.08;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.7'/></svg>")}
+
+.hero .hero-meta{
+  position:absolute;top:120px;right:clamp(20px,4vw,56px);
+  text-align:right;font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)
+}
+.hero .hero-meta b{display:block;color:var(--paper);font-weight:500;margin-bottom:4px}
+
+.hero h1{
+  font-family:var(--f-display);font-weight:300;font-size:clamp(60px,14vw,240px);
+  line-height:.88;letter-spacing:-.03em;color:var(--paper);
+  margin-top:auto;
+}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line .inner{display:inline-block;transform:translateY(110%)}
+.hero h1 em{font-style:italic;font-weight:400;color:var(--gold)}
+.hero h1 .amp{font-style:italic;color:var(--red);font-weight:500;margin:0 .1em}
+
+.hero .hero-bot{
+  margin-top:36px;display:grid;grid-template-columns:1fr auto 1fr;gap:40px;align-items:end;
+}
+.hero .hero-bot p{max-width:420px;color:var(--muted);font-size:14px;line-height:1.7}
+.hero .hero-bot .scroll-hint{justify-self:center;display:flex;flex-direction:column;align-items:center;gap:10px;font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.hero .hero-bot .scroll-hint .line{width:1px;height:50px;background:var(--paper);position:relative;overflow:hidden}
+.hero .hero-bot .scroll-hint .line::after{content:"";position:absolute;top:-50%;left:0;width:100%;height:50%;background:var(--gold);animation:sline 2.4s var(--ease) infinite}
+@keyframes sline{0%{top:-50%}100%{top:100%}}
+.hero .hero-bot .right{justify-self:end;text-align:right;font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.hero .hero-bot .right b{color:var(--paper);display:block;margin-bottom:4px;font-weight:500}
+
+/* Hero orbiting image */
+.hero .hero-art{
+  position:absolute;top:22%;left:50%;transform:translateX(-50%);
+  width:clamp(200px,30vw,380px);aspect-ratio:3/4;border-radius:240px;
+  overflow:hidden;will-change:transform;
+  border:1px solid var(--line);
+  box-shadow:0 40px 120px rgba(0,0,0,.6);
+}
+.hero .hero-art img{width:100%;height:100%;object-fit:cover;filter:saturate(.9) contrast(1.05)}
+.hero .hero-art::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, transparent 40%, rgba(12,10,9,.65));}
+
+@media (max-width:900px){
+  .hero{padding-top:100px}
+  .hero .hero-art{top:auto;bottom:42%;width:55vw}
+  .hero .hero-bot{grid-template-columns:1fr;gap:24px}
+  .hero .hero-bot .right,.hero .hero-bot .scroll-hint{justify-self:start;text-align:left}
+  .hero .hero-meta{position:static;text-align:left;margin-bottom:20px}
+}
+
+/* ==============================================================
+   MARQUEE
+   ============================================================== */
+.marquee{
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  overflow:hidden;background:var(--ink-2);
+}
+.marquee .track{display:flex;gap:60px;padding:24px 0;white-space:nowrap;will-change:transform}
+.marquee .track span{
+  font-family:var(--f-display);font-weight:300;font-style:italic;
+  font-size:clamp(34px,5vw,72px);line-height:1;letter-spacing:-.01em;color:var(--paper);
+  display:inline-flex;align-items:center;gap:60px;
+}
+.marquee .track span::after{content:"✦";color:var(--gold);font-style:normal;font-size:.6em}
+
+/* ==============================================================
+   ABOUT
+   ============================================================== */
+.about{padding:clamp(80px,12vw,160px) 0;background:var(--paper);color:var(--ink);position:relative}
+.about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,6vw,96px);align-items:start}
+.about .media{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:2px}
+.about .media img{width:100%;height:100%;object-fit:cover;will-change:transform}
+.about .media .cap{position:absolute;bottom:20px;left:20px;right:20px;display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--paper);mix-blend-mode:difference}
+.about .text .eyebrow{color:var(--wine)}
+.about .text h2{
+  font-family:var(--f-display);font-weight:400;font-size:clamp(36px,5vw,72px);
+  line-height:1.02;letter-spacing:-.02em;margin:20px 0 28px;
+}
+.about .text h2 em{font-style:italic;color:var(--wine)}
+.about .text p{font-size:17px;line-height:1.7;color:var(--ink);max-width:48ch;margin-bottom:18px}
+.about .text p.lead{font-family:var(--f-display);font-weight:400;font-size:22px;line-height:1.55;color:var(--wine-deep)}
+.about .year{position:absolute;top:60px;right:clamp(20px,4vw,56px);font-family:var(--f-display);font-weight:300;font-size:clamp(110px,16vw,240px);line-height:.8;color:var(--ink);opacity:.06;letter-spacing:-.04em;pointer-events:none}
+.about .sign{margin-top:32px;display:flex;align-items:center;gap:16px;font-family:var(--f-display);font-style:italic;font-size:18px;color:var(--wine)}
+.about .sign svg{width:80px;height:40px}
+@media (max-width:900px){.about .wrap{grid-template-columns:1fr} .about .year{font-size:100px;top:20px}}
+
+/* ==============================================================
+   PILLARS (pinned)
+   ============================================================== */
+.pillars{background:var(--ink);position:relative;padding:clamp(80px,10vw,140px) 0 0}
+.pillars .head{display:grid;grid-template-columns:1fr 2fr;gap:40px;align-items:end;margin-bottom:80px}
+.pillars .head h2{font-family:var(--f-display);font-weight:300;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.02em}
+.pillars .head h2 em{font-style:italic;color:var(--gold)}
+.pillars .head p{color:var(--muted);max-width:46ch;font-size:15px;line-height:1.7}
+.pillars .rows{border-top:1px solid var(--line)}
+.pillars .row{
+  border-bottom:1px solid var(--line);padding:36px 0;
+  display:grid;grid-template-columns:100px 1fr 1.5fr 80px;gap:24px;align-items:center;
+  position:relative;cursor:pointer;
+  transition:background .5s var(--ease);
+}
+.pillars .row::before{content:"";position:absolute;inset:0;background:var(--wine);transform-origin:left;transform:scaleX(0);transition:transform .7s var(--ease);z-index:0}
+.pillars .row > *{position:relative;z-index:1}
+.pillars .row:hover::before{transform:scaleX(1)}
+.pillars .row .no{font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;color:var(--muted)}
+.pillars .row .name{font-family:var(--f-display);font-weight:400;font-size:clamp(28px,4vw,56px);line-height:1;letter-spacing:-.02em}
+.pillars .row .name em{font-style:italic;color:var(--gold)}
+.pillars .row .desc{color:var(--muted);font-size:15px;line-height:1.65;max-width:48ch}
+.pillars .row:hover .desc{color:var(--paper)}
+.pillars .row .arr{justify-self:end;font-size:18px;transition:transform .5s var(--ease)}
+.pillars .row:hover .arr{transform:translateX(8px) rotate(-45deg)}
+@media (max-width:900px){.pillars .head{grid-template-columns:1fr} .pillars .row{grid-template-columns:40px 1fr;grid-template-rows:auto auto} .pillars .row .desc{grid-column:1/-1} .pillars .row .arr{display:none}}
+
+/* ==============================================================
+   HORIZONTAL SCROLL — JENJANG
+   ============================================================== */
+.horiz{
+  background:var(--ink);overflow:hidden;position:relative;
+}
+.horiz .intro{padding:clamp(80px,10vw,140px) clamp(20px,4vw,56px) 40px}
+.horiz .intro .eyebrow{color:var(--gold)}
+.horiz .intro h2{font-family:var(--f-display);font-weight:300;font-style:italic;font-size:clamp(40px,7vw,120px);line-height:.92;letter-spacing:-.02em;margin-top:18px;max-width:14ch}
+.horiz .intro h2 b{font-style:normal;font-weight:400;color:var(--paper)}
+
+.horiz .stage{height:100vh;overflow:hidden;position:relative}
+.horiz .track{display:flex;height:100%;will-change:transform}
+.horiz .panel{
+  flex:0 0 85vw;height:100%;padding:clamp(40px,6vw,80px);
+  display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(24px,5vw,80px);align-items:stretch;
+  border-right:1px solid var(--line);position:relative;
+}
+.horiz .panel .visual{position:relative;overflow:hidden;border-radius:2px;height:100%;min-height:400px}
+.horiz .panel .visual img{width:100%;height:100%;object-fit:cover;will-change:transform}
+.horiz .panel .visual::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(12,10,9,.7))}
+.horiz .panel .visual .tag{
+  position:absolute;top:20px;left:20px;padding:10px 14px;border:1px solid var(--paper);
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--paper);
+  background:rgba(12,10,9,.3);backdrop-filter:blur(10px);
+}
+.horiz .panel .copy{display:flex;flex-direction:column;justify-content:space-between;gap:40px}
+.horiz .panel .copy .top .num{font-family:var(--f-mono);font-size:12px;letter-spacing:.22em;color:var(--gold)}
+.horiz .panel .copy .top h3{font-family:var(--f-display);font-weight:300;font-size:clamp(48px,7vw,120px);line-height:.92;letter-spacing:-.02em;margin:18px 0 20px}
+.horiz .panel .copy .top h3 em{font-style:italic;color:var(--gold)}
+.horiz .panel .copy .top .sub{font-family:var(--f-display);font-style:italic;font-size:22px;color:var(--paper);margin-bottom:20px}
+.horiz .panel .copy .top p{color:var(--muted);font-size:15px;line-height:1.7;max-width:48ch}
+.horiz .panel .copy .feat{list-style:none;border-top:1px solid var(--line)}
+.horiz .panel .copy .feat li{border-bottom:1px solid var(--line);padding:14px 0;display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.horiz .panel .copy .feat li span:first-child{color:var(--muted)}
+.horiz .panel .copy .feat li span:last-child{color:var(--gold)}
+
+.horiz .progress{position:absolute;bottom:24px;left:clamp(20px,4vw,56px);right:clamp(20px,4vw,56px);display:flex;gap:16px;align-items:center;z-index:2;font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;color:var(--muted)}
+.horiz .progress .bar{flex:1;height:1px;background:var(--line);overflow:hidden}
+.horiz .progress .bar i{display:block;height:100%;width:0;background:var(--gold);transform-origin:left}
+
+@media (max-width:900px){
+  .horiz .panel{flex-basis:92vw;grid-template-columns:1fr;grid-template-rows:40vh 1fr}
+  .horiz .panel .visual{min-height:auto}
+}
+
+/* ==============================================================
+   STATS
+   ============================================================== */
+.stats{padding:clamp(80px,12vw,160px) 0;background:var(--wine);color:var(--paper);position:relative;overflow:hidden}
+.stats::before{content:"PENABUR";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--f-display);font-style:italic;font-weight:300;font-size:clamp(200px,34vw,640px);letter-spacing:-.05em;color:rgba(243,236,224,.04);pointer-events:none;white-space:nowrap}
+.stats .wrap{position:relative;z-index:1}
+.stats .head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:clamp(40px,6vw,80px);flex-wrap:wrap}
+.stats .head h2{font-family:var(--f-display);font-weight:300;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.02em;max-width:18ch}
+.stats .head h2 em{font-style:italic;color:var(--gold-soft)}
+.stats .head p{max-width:36ch;color:rgba(243,236,224,.7);font-size:15px;line-height:1.7}
+
+.stats .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid rgba(243,236,224,.2)}
+.stats .cell{padding:40px 28px;border-right:1px solid rgba(243,236,224,.2);border-bottom:1px solid rgba(243,236,224,.2);position:relative}
+.stats .cell:last-child{border-right:0}
+.stats .cell .label{font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-soft)}
+.stats .cell .num{font-family:var(--f-display);font-weight:300;font-size:clamp(60px,8vw,140px);line-height:1;letter-spacing:-.03em;margin:18px 0 10px;color:var(--paper)}
+.stats .cell .num em{font-style:italic;color:var(--gold-soft)}
+.stats .cell .desc{color:rgba(243,236,224,.7);font-size:14px;line-height:1.6;max-width:22ch}
+@media (max-width:900px){.stats .grid4{grid-template-columns:1fr 1fr} .stats .cell:nth-child(2){border-right:0} .stats .cell:nth-child(3){border-right:1px solid rgba(243,236,224,.2)}}
+@media (max-width:600px){.stats .grid4{grid-template-columns:1fr} .stats .cell{border-right:0!important}}
+
+/* ==============================================================
+   FACILITIES
+   ============================================================== */
+.fac{padding:clamp(80px,12vw,160px) 0;background:var(--paper);color:var(--ink)}
+.fac .head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:clamp(40px,6vw,80px)}
+.fac .head .eyebrow{color:var(--wine)}
+.fac .head h2{font-family:var(--f-display);font-weight:300;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.02em;margin-top:18px}
+.fac .head h2 em{font-style:italic;color:var(--wine)}
+.fac .head p{color:var(--muted-ink);font-size:15px;line-height:1.7;max-width:42ch;justify-self:end}
+
+.fac .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.fac .card{position:relative;overflow:hidden;border-radius:2px;background:var(--ink);aspect-ratio:4/5}
+.fac .card img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease);will-change:transform}
+.fac .card:hover img{transform:scale(1.06)}
+.fac .card .info{position:absolute;inset:0;padding:24px;display:flex;flex-direction:column;justify-content:flex-end;color:var(--paper);background:linear-gradient(180deg,transparent 40%,rgba(12,10,9,.85))}
+.fac .card .info .n{font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;color:var(--gold-soft);margin-bottom:10px}
+.fac .card .info .t{font-family:var(--f-display);font-weight:400;font-size:26px;line-height:1.1;letter-spacing:-.01em}
+.fac .card .info .d{margin-top:10px;font-size:13px;color:rgba(243,236,224,.75);max-height:0;overflow:hidden;transition:max-height .6s var(--ease)}
+.fac .card:hover .info .d{max-height:80px}
+
+.fac .c-1{grid-column:span 7;aspect-ratio:16/10}
+.fac .c-2{grid-column:span 5;aspect-ratio:16/10}
+.fac .c-3{grid-column:span 4}
+.fac .c-4{grid-column:span 4}
+.fac .c-5{grid-column:span 4}
+.fac .c-6{grid-column:span 6;aspect-ratio:16/10}
+.fac .c-7{grid-column:span 6;aspect-ratio:16/10}
+@media (max-width:900px){.fac .head{grid-template-columns:1fr} .fac .head p{justify-self:start} .fac .grid{grid-template-columns:1fr 1fr} .fac .card{grid-column:span 1!important;aspect-ratio:3/4!important}}
+
+/* ==============================================================
+   ACHIEVEMENTS
+   ============================================================== */
+.achv{padding:clamp(80px,12vw,160px) 0;background:var(--ink-2);color:var(--paper);position:relative;overflow:hidden}
+.achv .head{margin-bottom:clamp(40px,6vw,80px);text-align:center}
+.achv .head h2{font-family:var(--f-display);font-weight:300;font-size:clamp(40px,7vw,120px);line-height:.95;letter-spacing:-.02em;margin-top:18px}
+.achv .head h2 em{font-style:italic;color:var(--gold)}
+.achv .list{border-top:1px solid var(--line)}
+.achv .item{
+  border-bottom:1px solid var(--line);padding:28px 0;
+  display:grid;grid-template-columns:120px 1fr 1fr 140px;gap:24px;align-items:center;position:relative;
+  transition:padding .5s var(--ease),color .5s var(--ease);
+}
+.achv .item::before{content:"";position:absolute;top:0;left:0;width:0;height:100%;background:var(--gold);transition:width .7s var(--ease)}
+.achv .item:hover::before{width:6px}
+.achv .item:hover{padding-left:24px;color:var(--gold-soft)}
+.achv .item .y{font-family:var(--f-mono);font-size:12px;letter-spacing:.22em;color:var(--gold)}
+.achv .item .t{font-family:var(--f-display);font-weight:400;font-size:clamp(22px,2.4vw,34px);line-height:1.15;letter-spacing:-.01em}
+.achv .item .t em{font-style:italic;color:var(--gold)}
+.achv .item .l{color:var(--muted);font-size:14px;line-height:1.6}
+.achv .item .a{justify-self:end;font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:900px){.achv .item{grid-template-columns:80px 1fr;grid-template-rows:auto auto} .achv .item .l{grid-column:1/-1} .achv .item .a{display:none}}
+
+/* ==============================================================
+   QUOTE
+   ============================================================== */
+.quote{padding:clamp(80px,14vw,180px) 0;background:var(--ink);position:relative}
+.quote .inner{max-width:1100px;margin:0 auto;padding:0 clamp(20px,4vw,56px);text-align:center}
+.quote .mark{font-family:var(--f-display);font-style:italic;font-weight:300;font-size:clamp(120px,16vw,280px);line-height:.8;color:var(--wine);letter-spacing:-.05em}
+.quote blockquote{font-family:var(--f-display);font-weight:300;font-style:italic;font-size:clamp(28px,4.4vw,68px);line-height:1.15;letter-spacing:-.02em;color:var(--paper);margin-top:-40px}
+.quote blockquote em{font-style:italic;color:var(--gold);font-weight:400}
+.quote cite{display:block;margin-top:40px;font-family:var(--f-mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);font-style:normal}
+.quote cite b{display:block;color:var(--gold);font-weight:500;margin-bottom:6px}
+
+/* ==============================================================
+   GALLERY (parallax scatter)
+   ============================================================== */
+.gal{padding:clamp(60px,10vw,120px) 0;background:var(--ink);overflow:hidden;position:relative}
+.gal .strip{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(12px,1.5vw,24px);align-items:start}
+.gal figure{position:relative;overflow:hidden;border-radius:2px}
+.gal figure img{width:100%;height:100%;object-fit:cover;will-change:transform}
+.gal .g-1{grid-column:1/5;aspect-ratio:3/4;margin-top:60px}
+.gal .g-2{grid-column:5/9;aspect-ratio:4/3}
+.gal .g-3{grid-column:9/13;aspect-ratio:3/4;margin-top:120px}
+.gal .g-4{grid-column:2/6;aspect-ratio:4/5;margin-top:40px}
+.gal .g-5{grid-column:6/11;aspect-ratio:16/10}
+.gal .g-6{grid-column:11/13;aspect-ratio:3/4;margin-top:80px}
+@media (max-width:900px){.gal .strip{grid-template-columns:1fr 1fr} .gal figure{grid-column:span 1!important;margin-top:0!important;aspect-ratio:3/4!important}}
+
+/* ==============================================================
+   CTA
+   ============================================================== */
+.cta{padding:clamp(100px,14vw,200px) 0;background:var(--paper);color:var(--ink);position:relative;overflow:hidden}
+.cta .inner{text-align:center;max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+.cta .eyebrow{color:var(--wine)}
+.cta h2{font-family:var(--f-display);font-weight:300;font-size:clamp(50px,10vw,200px);line-height:.9;letter-spacing:-.03em;margin:28px 0 40px}
+.cta h2 em{font-style:italic;color:var(--wine)}
+.cta p{max-width:48ch;margin:0 auto 40px;font-size:17px;line-height:1.7;color:var(--muted-ink)}
+.cta .btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.cta .swirl{position:absolute;inset:0;pointer-events:none;opacity:.5;background:radial-gradient(600px 300px at 20% 80%, rgba(107,15,26,.12), transparent 60%),radial-gradient(500px 300px at 80% 20%, rgba(201,161,90,.18), transparent 60%)}
+
+/* ==============================================================
+   FOOTER
+   ============================================================== */
+footer{background:var(--ink);color:var(--paper);padding:80px 0 30px;border-top:1px solid var(--line)}
+footer .top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:80px}
+footer h4{font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+footer ul{list-style:none}
+footer ul li{margin-bottom:10px;font-size:14px;color:var(--muted)}
+footer ul a:hover{color:var(--gold)}
+footer .big{font-family:var(--f-display);font-weight:300;font-size:clamp(34px,5vw,64px);line-height:1;letter-spacing:-.02em;margin-bottom:24px}
+footer .big em{font-style:italic;color:var(--gold)}
+footer .lang{margin-top:20px;font-size:14px;color:var(--muted);max-width:34ch;line-height:1.7}
+footer .bar{border-top:1px solid var(--line);padding-top:30px;display:flex;justify-content:space-between;align-items:center;font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);flex-wrap:wrap;gap:20px}
+footer .bar .soc{display:flex;gap:20px}
+footer .giant{font-family:var(--f-display);font-weight:300;font-style:italic;font-size:clamp(80px,20vw,360px);line-height:.8;letter-spacing:-.04em;color:var(--paper);text-align:center;margin:60px 0 20px;overflow:hidden}
+footer .giant span{display:inline-block}
+@media (max-width:900px){footer .top{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){footer .top{grid-template-columns:1fr}}
+
+/* reveal animation helpers */
+.split-line{display:block;overflow:hidden}
+.split-line > *{display:inline-block;transform:translateY(110%);will-change:transform}
+.clip-reveal{clip-path:inset(100% 0 0 0);transition:clip-path 1.4s var(--ease)}
+.clip-reveal.is-in{clip-path:inset(0 0 0 0)}
+
+</style>
+</head>
+<body>
+
+<!-- custom cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- PRELOADER -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="pl-wrap">
+    <div class="pl-top">
+      <span>BPK PENABUR</span>
+      <span>ESTABLISHED · 1950</span>
+    </div>
+    <div class="pl-brand"><span id="pl-text">PENABUR</span></div>
+    <div class="pl-bar"><i id="pl-bar"></i></div>
+    <div class="pl-count">
+      <span>Preparing Experience</span>
+      <span><b id="pl-num">0</b>%</span>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" aria-label="Primary">
+  <a href="#" class="brand"><span class="dot"></span> BPK PENABUR</a>
+  <ul>
+    <li><a href="#about" data-scroll>Tentang</a></li>
+    <li><a href="#pillars" data-scroll>Nilai</a></li>
+    <li><a href="#jenjang" data-scroll>Jenjang</a></li>
+    <li><a href="#fasilitas" data-scroll>Fasilitas</a></li>
+    <li><a href="#prestasi" data-scroll>Prestasi</a></li>
+  </ul>
+  <a href="#cta" class="cta" data-scroll>Daftar Sekarang</a>
+  <button class="menu-btn" aria-label="Open menu">Menu</button>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="hero">
+  <div class="grain"></div>
+
+  <div class="hero-meta">
+    <b>EST. 1950</b>
+    <span>Jakarta · Indonesia</span>
+  </div>
+
+  <div class="hero-art" data-parallax="0.15">
+    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=900&q=80" alt="Students in library" />
+  </div>
+
+  <h1>
+    <span class="line"><span class="inner">Where</span></span>
+    <span class="line"><span class="inner"><em>Faith</em> meets</span></span>
+    <span class="line"><span class="inner">Excellence<span class="amp">.</span></span></span>
+  </h1>
+
+  <div class="hero-bot">
+    <p>BPK PENABUR — sekolah Kristen yang telah membentuk lebih dari tiga generasi pemimpin berintegritas, berempati, dan unggul secara akademik sejak 1950.</p>
+
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="line"></div>
+    </div>
+
+    <div class="right">
+      <b>CHAPTER 01 / 08</b>
+      <span>The Invitation</span>
+    </div>
+  </div>
+</header>
+
+<!-- MARQUEE -->
+<section class="marquee" aria-hidden="true">
+  <div class="track" id="marquee-track">
+    <span>Iman&nbsp;&nbsp;·&nbsp;&nbsp;Pengharapan&nbsp;&nbsp;·&nbsp;&nbsp;Kasih</span>
+    <span>Iman&nbsp;&nbsp;·&nbsp;&nbsp;Pengharapan&nbsp;&nbsp;·&nbsp;&nbsp;Kasih</span>
+    <span>Iman&nbsp;&nbsp;·&nbsp;&nbsp;Pengharapan&nbsp;&nbsp;·&nbsp;&nbsp;Kasih</span>
+    <span>Iman&nbsp;&nbsp;·&nbsp;&nbsp;Pengharapan&nbsp;&nbsp;·&nbsp;&nbsp;Kasih</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="year" aria-hidden="true">1950</div>
+  <div class="container wrap">
+    <div class="media">
+      <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80" alt="Classroom moment" data-parallax-img />
+      <div class="cap">
+        <span>Since 1950</span>
+        <span>— Jakarta</span>
+      </div>
+    </div>
+    <div class="text">
+      <span class="eyebrow">Prologue · Tentang Kami</span>
+      <h2 data-split>Menabur benih <em>kebajikan</em>, menuai generasi yang <em>berdampak</em>.</h2>
+      <p class="lead" data-fade>Didirikan dengan semangat melayani, BPK PENABUR tumbuh menjadi salah satu jaringan sekolah Kristen paling terpercaya di Indonesia.</p>
+      <p data-fade>Kami mempertemukan pendidikan karakter berlandaskan Injil dengan kurikulum nasional dan internasional — sebuah ekosistem yang membentuk murid menjadi pribadi utuh: cerdas, berempati, dan takut akan Tuhan.</p>
+      <p data-fade>Dari TK hingga SMA/SMK, setiap jenjang dirancang sebagai bab tersendiri dari perjalanan panjang seorang anak menemukan panggilannya.</p>
+      <div class="sign">
+        <svg viewBox="0 0 80 40" fill="none"><path d="M2 30 C 15 5, 30 38, 45 15 S 70 10, 78 28" stroke="#6b0f1a" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>— Sekolah Kristen BPK PENABUR</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="pillars" id="pillars">
+  <div class="container">
+    <div class="head">
+      <span class="eyebrow">Chapter 02 · Nilai Inti</span>
+      <h2 data-split>Empat <em>pilar</em> yang menopang setiap langkah murid kami.</h2>
+    </div>
+    <div class="head" style="margin-top:-40px">
+      <span></span>
+      <p>Bukan sekadar kata-kata di dinding. Nilai-nilai ini hadir dalam setiap pelajaran, setiap doa pagi, setiap pertemuan antara guru dan murid.</p>
+    </div>
+
+    <div class="rows">
+      <div class="row" data-reveal>
+        <div class="no">01</div>
+        <div class="name"><em>Faith</em></div>
+        <div class="desc">Setiap pembelajaran dimulai dan diakhiri dengan kesadaran bahwa pengetahuan sejati berasal dari Sang Pencipta.</div>
+        <div class="arr">→</div>
+      </div>
+      <div class="row" data-reveal>
+        <div class="no">02</div>
+        <div class="name"><em>Integrity</em></div>
+        <div class="desc">Kami membentuk karakter yang jujur — pada diri sendiri, pada sesama, dan pada pekerjaan yang dipercayakan.</div>
+        <div class="arr">→</div>
+      </div>
+      <div class="row" data-reveal>
+        <div class="no">03</div>
+        <div class="name"><em>Excellence</em></div>
+        <div class="desc">Mengejar yang terbaik bukan untuk bersaing, tetapi untuk mempersembahkan yang layak bagi Tuhan dan sesama.</div>
+        <div class="arr">→</div>
+      </div>
+      <div class="row" data-reveal>
+        <div class="no">04</div>
+        <div class="name"><em>Compassion</em></div>
+        <div class="desc">Kecerdasan tanpa empati adalah kosong. Murid kami belajar melayani sebelum dilayani.</div>
+        <div class="arr">→</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HORIZONTAL: JENJANG -->
+<section class="horiz" id="jenjang">
+  <div class="intro">
+    <span class="eyebrow">Chapter 03 · Jenjang Pendidikan</span>
+    <h2 data-split>Lima babak dalam satu <b>kisah panjang</b></h2>
+  </div>
+
+  <div class="stage" id="horizStage">
+    <div class="track" id="horizTrack">
+
+      <article class="panel">
+        <div class="visual">
+          <span class="tag">Usia 4–6</span>
+          <img src="https://images.unsplash.com/photo-1587616211892-f743fcca64f5?auto=format&fit=crop&w=1400&q=80" alt="Kindergarten" data-parallax-img />
+        </div>
+        <div class="copy">
+          <div class="top">
+            <span class="num">01 — Taman Kanak-Kanak</span>
+            <h3>TK <em>PENABUR</em></h3>
+            <p class="sub">Di mana keingintahuan dirayakan.</p>
+            <p>Melalui bermain, cerita Alkitab, dan eksplorasi indrawi, anak-anak kami belajar bahwa dunia adalah tempat yang penuh keajaiban dan kasih.</p>
+          </div>
+          <ul class="feat">
+            <li><span>Pendekatan</span><span>Play-based</span></li>
+            <li><span>Bahasa</span><span>ID · EN</span></li>
+            <li><span>Rasio Guru</span><span>1 : 10</span></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="visual">
+          <span class="tag">Usia 6–12</span>
+          <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=1400&q=80" alt="Elementary" data-parallax-img />
+        </div>
+        <div class="copy">
+          <div class="top">
+            <span class="num">02 — Sekolah Dasar</span>
+            <h3>SD <em>PENABUR</em></h3>
+            <p class="sub">Membangun fondasi yang kokoh.</p>
+            <p>Literasi, numerasi, dan karakter bertumbuh bersama. Kurikulum kami memadukan standar nasional dengan inquiry learning dan Pendidikan Agama Kristen.</p>
+          </div>
+          <ul class="feat">
+            <li><span>Kurikulum</span><span>Merdeka · Cambridge</span></li>
+            <li><span>Ekskul</span><span>25+</span></li>
+            <li><span>Kapasitas</span><span>30/kelas</span></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="visual">
+          <span class="tag">Usia 12–15</span>
+          <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1400&q=80" alt="Middle school" data-parallax-img />
+        </div>
+        <div class="copy">
+          <div class="top">
+            <span class="num">03 — Sekolah Menengah Pertama</span>
+            <h3>SMP <em>PENABUR</em></h3>
+            <p class="sub">Menemukan suara sendiri.</p>
+            <p>Masa peralihan yang paling menentukan. Kami mendampingi remaja menjelajahi minat, memperkuat nilai, dan mempersiapkan diri untuk masa depan.</p>
+          </div>
+          <ul class="feat">
+            <li><span>STEAM</span><span>Lab modern</span></li>
+            <li><span>Konseling</span><span>Dedicated</span></li>
+            <li><span>Prestasi</span><span>Nasional+</span></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="visual">
+          <span class="tag">Usia 15–18</span>
+          <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1400&q=80" alt="High school" data-parallax-img />
+        </div>
+        <div class="copy">
+          <div class="top">
+            <span class="num">04 — Sekolah Menengah Atas</span>
+            <h3>SMA <em>PENABUR</em></h3>
+            <p class="sub">Siap untuk dunia.</p>
+            <p>Program akademik intensif berpadu dengan pembentukan karakter pemimpin. 98% lulusan kami diterima di universitas pilihan pertama — di dalam dan luar negeri.</p>
+          </div>
+          <ul class="feat">
+            <li><span>Program</span><span>IPA · IPS · Cambridge</span></li>
+            <li><span>Universitas</span><span>98% Accepted</span></li>
+            <li><span>Beasiswa</span><span>Available</span></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="visual">
+          <span class="tag">Usia 15–18</span>
+          <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1400&q=80" alt="Vocational" data-parallax-img />
+        </div>
+        <div class="copy">
+          <div class="top">
+            <span class="num">05 — Sekolah Menengah Kejuruan</span>
+            <h3>SMK <em>PENABUR</em></h3>
+            <p class="sub">Keterampilan bertemu karakter.</p>
+            <p>Bagi mereka yang memilih jalan langsung ke dunia kerja atau wirausaha — dengan fondasi iman dan etika profesional yang sama kokohnya.</p>
+          </div>
+          <ul class="feat">
+            <li><span>Jurusan</span><span>DKV · Akuntansi · RPL</span></li>
+            <li><span>Magang</span><span>Industry Partner</span></li>
+            <li><span>Sertifikasi</span><span>BNSP</span></li>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="progress">
+      <span id="horizLabel">01 / 05</span>
+      <div class="bar"><i id="horizBar"></i></div>
+      <span>Drag / Scroll</span>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats" id="stats">
+  <div class="container wrap">
+    <div class="head">
+      <h2 data-split>Angka yang tidak pernah jadi <em>tujuan</em>, tapi selalu jadi <em>buah</em>.</h2>
+      <p>Ribuan cerita, puluhan ribu doa, dan tujuh dekade pengabdian — terangkum dalam empat angka sederhana.</p>
+    </div>
+    <div class="grid4">
+      <div class="cell">
+        <div class="label">Tahun</div>
+        <div class="num"><span class="count" data-to="74">0</span><em>+</em></div>
+        <div class="desc">Melayani pendidikan Indonesia sejak 1950.</div>
+      </div>
+      <div class="cell">
+        <div class="label">Murid Aktif</div>
+        <div class="num"><span class="count" data-to="32">0</span><em>K</em></div>
+        <div class="desc">Tersebar di lebih dari 70 unit sekolah se-Indonesia.</div>
+      </div>
+      <div class="cell">
+        <div class="label">Universitas</div>
+        <div class="num"><span class="count" data-to="98">0</span><em>%</em></div>
+        <div class="desc">Lulusan SMA diterima di universitas pilihan.</div>
+      </div>
+      <div class="cell">
+        <div class="label">Guru & Staf</div>
+        <div class="num"><span class="count" data-to="2400">0</span><em>+</em></div>
+        <div class="desc">Pendidik bersertifikasi yang mendampingi setiap langkah.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FACILITIES -->
+<section class="fac" id="fasilitas">
+  <div class="container">
+    <div class="head">
+      <div>
+        <span class="eyebrow">Chapter 04 · Fasilitas</span>
+        <h2 data-split>Ruang belajar yang <em>hidup</em>.</h2>
+      </div>
+      <p>Ruang kelas hanyalah permulaan. Seluruh kampus dirancang untuk mendorong rasa ingin tahu, kolaborasi, dan kontemplasi — dari laboratorium hingga kapel.</p>
+    </div>
+
+    <div class="grid">
+      <a class="card c-1" data-reveal>
+        <img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1600&q=80" alt="Library" />
+        <div class="info"><div class="n">01</div><div class="t">Perpustakaan Modern</div><div class="d">20,000+ koleksi fisik dan akses digital ke jurnal internasional.</div></div>
+      </a>
+      <a class="card c-2" data-reveal>
+        <img src="https://images.unsplash.com/photo-1584433144859-1fc3ab64a957?auto=format&fit=crop&w=1200&q=80" alt="Chapel" />
+        <div class="info"><div class="n">02</div><div class="t">Kapel & Aula</div><div class="d">Tempat ibadah dan pertemuan berkapasitas 800 jemaat.</div></div>
+      </a>
+      <a class="card c-3" data-reveal>
+        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=900&q=80" alt="Lab" />
+        <div class="info"><div class="n">03</div><div class="t">Lab Sains</div><div class="d">Peralatan setara universitas, untuk eksperimen sesungguhnya.</div></div>
+      </a>
+      <a class="card c-4" data-reveal>
+        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=900&q=80" alt="Computer lab" />
+        <div class="info"><div class="n">04</div><div class="t">Lab Komputer & Robotik</div><div class="d">Ruang coding, robotika, dan AI untuk semua jenjang.</div></div>
+      </a>
+      <a class="card c-5" data-reveal>
+        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=900&q=80" alt="Art studio" />
+        <div class="info"><div class="n">05</div><div class="t">Studio Seni & Musik</div><div class="d">Ruang ekspresi untuk seniman, musisi, dan penari masa depan.</div></div>
+      </a>
+      <a class="card c-6" data-reveal>
+        <img src="https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=1600&q=80" alt="Sports" />
+        <div class="info"><div class="n">06</div><div class="t">Kompleks Olahraga</div><div class="d">Lapangan indoor-outdoor, kolam renang, dan gym profesional.</div></div>
+      </a>
+      <a class="card c-7" data-reveal>
+        <img src="https://images.unsplash.com/photo-1497486751825-1233686d5d80?auto=format&fit=crop&w=1600&q=80" alt="Garden" />
+        <div class="info"><div class="n">07</div><div class="t">Taman & Outdoor Class</div><div class="d">Ruang hijau untuk kelas terbuka dan kontemplasi.</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section class="achv" id="prestasi">
+  <div class="container">
+    <div class="head">
+      <span class="eyebrow">Chapter 05 · Prestasi Terkini</span>
+      <h2 data-split>Dipuji di ruang kelas. <em>Diakui</em> di panggung dunia.</h2>
+    </div>
+
+    <div class="list">
+      <div class="item" data-reveal>
+        <div class="y">2025</div>
+        <div class="t"><em>Gold Medal</em> — International Mathematical Olympiad</div>
+        <div class="l">Tiga murid SMA mewakili Indonesia di Bath, UK.</div>
+        <div class="a">Global ↗</div>
+      </div>
+      <div class="item" data-reveal>
+        <div class="y">2025</div>
+        <div class="t">Juara Umum — Kompetisi Sains Nasional</div>
+        <div class="l">Sekolah kami meraih medali di lima bidang lomba.</div>
+        <div class="a">Nasional ↗</div>
+      </div>
+      <div class="item" data-reveal>
+        <div class="y">2024</div>
+        <div class="t">Best Choir — <em>World Choir Games</em>, Auckland</div>
+        <div class="l">PENABUR Youth Choir membawa pulang medali emas ganda.</div>
+        <div class="a">Global ↗</div>
+      </div>
+      <div class="item" data-reveal>
+        <div class="y">2024</div>
+        <div class="t">Finalis — FIRST Global Robotics Challenge</div>
+        <div class="l">Tim robotika SMP & SMA bersaing dengan 190 negara.</div>
+        <div class="a">Global ↗</div>
+      </div>
+      <div class="item" data-reveal>
+        <div class="y">2023</div>
+        <div class="t">Akreditasi <em>A Unggul</em> — BAN-S/M</div>
+        <div class="l">Lebih dari 60 unit sekolah memperoleh akreditasi tertinggi.</div>
+        <div class="a">Nasional ↗</div>
+      </div>
+      <div class="item" data-reveal>
+        <div class="y">2023</div>
+        <div class="t">Cambridge Outstanding Learner Award</div>
+        <div class="l">Top-in-country untuk IGCSE Mathematics & Physics.</div>
+        <div class="a">Internasional ↗</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote">
+  <div class="inner">
+    <div class="mark" aria-hidden="true">“</div>
+    <blockquote data-split>
+      Tujuan pendidikan yang sejati bukanlah menghasilkan <em>orang yang tahu banyak</em>,
+      melainkan <em>orang yang mencintai kebenaran</em>.
+    </blockquote>
+    <cite><b>— Pdt. Dr. Samuel L.</b>Ketua Yayasan BPK PENABUR</cite>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gal">
+  <div class="container">
+    <div class="strip">
+      <figure class="g-1"><img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=900&q=80" alt="" data-parallax-img /></figure>
+      <figure class="g-2"><img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80" alt="" data-parallax-img /></figure>
+      <figure class="g-3"><img src="https://images.unsplash.com/photo-1491308056676-205b7c9a7dc1?auto=format&fit=crop&w=900&q=80" alt="" data-parallax-img /></figure>
+      <figure class="g-4"><img src="https://images.unsplash.com/photo-1544531585-9847b68c8c86?auto=format&fit=crop&w=900&q=80" alt="" data-parallax-img /></figure>
+      <figure class="g-5"><img src="https://images.unsplash.com/photo-1564429238817-393c04eba40f?auto=format&fit=crop&w=1400&q=80" alt="" data-parallax-img /></figure>
+      <figure class="g-6"><img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=700&q=80" alt="" data-parallax-img /></figure>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <div class="swirl"></div>
+  <div class="inner">
+    <span class="eyebrow">Chapter 08 · Bergabung</span>
+    <h2 data-split>Tulis bab <em>selanjutnya</em><br/>bersama kami.</h2>
+    <p>Penerimaan Peserta Didik Baru tahun ajaran 2026/2027 telah dibuka untuk jenjang TK, SD, SMP, dan SMA. Kunjungi kampus kami, atau jadwalkan panggilan singkat dengan tim penerimaan.</p>
+    <div class="btns">
+      <a href="#" class="btn dark">Daftar PPDB <span class="arr">→</span></a>
+      <a href="#" class="btn gold">Jadwalkan Kunjungan <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="top">
+      <div>
+        <h4>BPK PENABUR</h4>
+        <div class="big">Faith<em>,</em><br/>Integrity<em>,</em><br/>Excellence.</div>
+        <p class="lang">Yayasan BPK PENABUR — jaringan sekolah Kristen yang telah melayani pendidikan Indonesia sejak 1950.</p>
+      </div>
+      <div>
+        <h4>Menu</h4>
+        <ul>
+          <li><a href="#about" data-scroll>Tentang</a></li>
+          <li><a href="#pillars" data-scroll>Nilai Inti</a></li>
+          <li><a href="#jenjang" data-scroll>Jenjang</a></li>
+          <li><a href="#fasilitas" data-scroll>Fasilitas</a></li>
+          <li><a href="#prestasi" data-scroll>Prestasi</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Penerimaan</h4>
+        <ul>
+          <li><a href="#">PPDB TK</a></li>
+          <li><a href="#">PPDB SD</a></li>
+          <li><a href="#">PPDB SMP</a></li>
+          <li><a href="#">PPDB SMA / SMK</a></li>
+          <li><a href="#">Beasiswa</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontak</h4>
+        <ul>
+          <li>Jl. Tanjung Duren Raya No. 4</li>
+          <li>Jakarta Barat 11470</li>
+          <li>+62 21 566 9767</li>
+          <li>halo@bpkpenabur.or.id</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="giant"><span id="giantText">PENABUR</span></div>
+
+    <div class="bar">
+      <span>© 2026 Yayasan BPK PENABUR — All Rights Reserved.</span>
+      <div class="soc">
+        <a href="#">Instagram</a>
+        <a href="#">YouTube</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================================
+   KIRO — PENABUR scroll experience
+   ========================================================================= */
+(() => {
+  const prefersReduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+  /* ---------- Lenis smooth scroll ---------- */
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: !prefersReduce,
+    smoothTouch: false,
+  });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((t) => lenis.raf(t * 1000));
+  gsap.ticker.lagSmoothing(0);
+
+  /* ---------- Smooth anchor scroll ---------- */
+  document.querySelectorAll('[data-scroll]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      if (!id || !id.startsWith('#')) return;
+      const tgt = document.querySelector(id);
+      if (!tgt) return;
+      e.preventDefault();
+      lenis.scrollTo(tgt, { offset: -10, duration: 1.6 });
+    });
+  });
+
+  /* ---------- Custom cursor ---------- */
+  const cur = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  if (cur && ring && matchMedia('(pointer:fine)').matches) {
+    const pos = { x: innerWidth / 2, y: innerHeight / 2 };
+    const target = { x: pos.x, y: pos.y };
+    addEventListener('pointermove', (e) => { target.x = e.clientX; target.y = e.clientY;
+      cur.style.transform = `translate(${target.x}px, ${target.y}px) translate(-50%,-50%)`;
+    });
+    function ringLoop() {
+      pos.x += (target.x - pos.x) * 0.15;
+      pos.y += (target.y - pos.y) * 0.15;
+      ring.style.transform = `translate(${pos.x}px, ${pos.y}px) translate(-50%,-50%)`;
+      requestAnimationFrame(ringLoop);
+    }
+    ringLoop();
+    const hoverables = 'a,button,[data-reveal],.row,.card,.item,figure';
+    document.querySelectorAll(hoverables).forEach(el => {
+      el.addEventListener('mouseenter', () => { cur.classList.add('hover'); ring.classList.add('hover'); });
+      el.addEventListener('mouseleave', () => { cur.classList.remove('hover'); ring.classList.remove('hover'); });
+    });
+  }
+
+  /* ---------- Split helper (words + letters, keeping HTML inside) ---------- */
+  function splitToChars(el) {
+    // Wrap each word; inside each word wrap chars
+    const nodes = Array.from(el.childNodes);
+    el.innerHTML = '';
+    nodes.forEach((n) => {
+      if (n.nodeType === 3) { // text
+        const words = n.textContent.split(/(\s+)/);
+        words.forEach(w => {
+          if (/^\s+$/.test(w)) { el.appendChild(document.createTextNode(w)); return; }
+          const span = document.createElement('span');
+          span.style.display = 'inline-block';
+          span.style.overflow = 'hidden';
+          span.style.verticalAlign = 'top';
+          const inner = document.createElement('span');
+          inner.style.display = 'inline-block';
+          inner.style.transform = 'translateY(110%)';
+          inner.className = '__splitInner';
+          inner.textContent = w;
+          span.appendChild(inner);
+          el.appendChild(span);
+        });
+      } else {
+        // keep element but also animate it
+        const span = document.createElement('span');
+        span.style.display = 'inline-block';
+        span.style.overflow = 'hidden';
+        span.style.verticalAlign = 'top';
+        const inner = document.createElement('span');
+        inner.style.display = 'inline-block';
+        inner.style.transform = 'translateY(110%)';
+        inner.className = '__splitInner';
+        inner.appendChild(n);
+        span.appendChild(inner);
+        el.appendChild(span);
+      }
+    });
+    return el.querySelectorAll('.__splitInner');
+  }
+
+  /* ---------- PRELOADER ---------- */
+  const pl = document.getElementById('preloader');
+  const plBar = document.getElementById('pl-bar');
+  const plNum = document.getElementById('pl-num');
+  const plText = document.getElementById('pl-text');
+
+  const loaderTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
+  loaderTL
+    .to(pl.querySelectorAll('.pl-brand span'), { y: '0%', duration: 1.1, ease: 'expo.out' })
+    .fromTo(plBar, { width: '0%' }, {
+      width: '100%', duration: 2.4, ease: 'power2.inOut',
+      onUpdate() {
+        const p = Math.round(this.ratio * 100);
+        if (plNum) plNum.textContent = p;
+      }
+    }, 0.1)
+    .to(pl.querySelectorAll('.pl-brand span, .pl-top, .pl-count'), { y: -20, opacity: 0, duration: .6, ease: 'power2.in', stagger: 0.04 }, '+=.1')
+    .to(pl, { yPercent: -100, duration: 1.1, ease: 'expo.inOut' }, '-=.2')
+    .add(() => { pl.style.display = 'none'; lenis.start(); heroIntro(); })
+    .from('.nav', { y: -30, opacity: 0, duration: 1, ease: 'power3.out' }, '-=.6');
+
+  lenis.stop();
+
+  /* ---------- HERO INTRO ---------- */
+  function heroIntro() {
+    const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
+    tl.to('.hero h1 .line .inner', { y: '0%', duration: 1.3, stagger: 0.12 });
+    tl.from('.hero .hero-meta, .hero .hero-bot p, .hero .hero-bot .right, .hero .hero-bot .scroll-hint',
+      { y: 24, opacity: 0, duration: 1, stagger: .08 }, '-=.8');
+    tl.from('.hero .hero-art', { scale: 1.12, y: 60, opacity: 0, duration: 1.6, ease: 'expo.out' }, '-=1.1');
+  }
+
+  /* ---------- SPLIT TEXT REVEALS ---------- */
+  document.querySelectorAll('[data-split]').forEach((el) => {
+    const inners = splitToChars(el);
+    gsap.to(inners, {
+      y: '0%', duration: 1.1, ease: 'expo.out', stagger: 0.03,
+      scrollTrigger: { trigger: el, start: 'top 85%' }
+    });
+  });
+
+  /* ---------- FADE UP ---------- */
+  gsap.utils.toArray('[data-fade]').forEach((el) => {
+    gsap.from(el, {
+      y: 30, opacity: 0, duration: 1.1, ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 88%' }
+    });
+  });
+
+  /* ---------- ROW / CARD / ITEM REVEAL ---------- */
+  gsap.utils.toArray('[data-reveal]').forEach((el) => {
+    gsap.from(el, {
+      y: 40, opacity: 0, duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 90%' }
+    });
+  });
+
+  /* ---------- ABOUT MEDIA CLIP REVEAL + PARALLAX ---------- */
+  gsap.utils.toArray('.about .media').forEach((m) => {
+    gsap.fromTo(m,
+      { clipPath: 'inset(100% 0 0 0)' },
+      {
+        clipPath: 'inset(0% 0 0 0)', duration: 1.6, ease: 'expo.out',
+        scrollTrigger: { trigger: m, start: 'top 85%' }
+      });
+  });
+
+  gsap.utils.toArray('[data-parallax-img]').forEach((img) => {
+    gsap.to(img, {
+      yPercent: -12, ease: 'none',
+      scrollTrigger: { trigger: img.closest('figure, .media, .visual, .hero-art') || img, start: 'top bottom', end: 'bottom top', scrub: true }
+    });
+  });
+
+  gsap.utils.toArray('[data-parallax]').forEach((el) => {
+    const strength = parseFloat(el.dataset.parallax) || 0.1;
+    gsap.to(el, {
+      yPercent: -20 * strength * 10, ease: 'none',
+      scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true }
+    });
+  });
+
+  /* ---------- HERO ART: scale out on scroll ---------- */
+  gsap.to('.hero .hero-art', {
+    scale: 0.7, opacity: 0.5, ease: 'none',
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+  });
+  gsap.to('.hero h1', {
+    yPercent: -20, ease: 'none',
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+  });
+
+  /* ---------- MARQUEE ---------- */
+  const track = document.getElementById('marquee-track');
+  if (track) {
+    const total = track.scrollWidth / 2;
+    gsap.to(track, { x: -total, duration: 28, ease: 'none', repeat: -1 });
+    // invert on scroll direction
+    let lastY = 0;
+    ScrollTrigger.create({
+      onUpdate: (self) => {
+        const dir = self.direction;
+        gsap.to(track, { timeScale: dir === 1 ? 1 : -1, overwrite: 'auto', duration: .4 });
+      }
+    });
+  }
+
+  /* ---------- HORIZONTAL SCROLL (pinned) ---------- */
+  const stage = document.getElementById('horizStage');
+  const horizTrack = document.getElementById('horizTrack');
+  const horizBar = document.getElementById('horizBar');
+  const horizLabel = document.getElementById('horizLabel');
+
+  if (stage && horizTrack) {
+    const panels = horizTrack.querySelectorAll('.panel');
+    const total = () => horizTrack.scrollWidth - stage.clientWidth;
+
+    const st = ScrollTrigger.create({
+      trigger: stage,
+      start: 'top top',
+      end: () => `+=${total() + stage.clientHeight * 0.5}`,
+      pin: true,
+      scrub: 1,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
+      onUpdate: (self) => {
+        const x = -self.progress * total();
+        gsap.set(horizTrack, { x });
+        if (horizBar) gsap.set(horizBar, { scaleX: self.progress });
+        if (horizLabel) {
+          const idx = Math.min(panels.length, Math.max(1, Math.ceil(self.progress * panels.length))) || 1;
+          horizLabel.textContent = `${String(idx).padStart(2,'0')} / ${String(panels.length).padStart(2,'0')}`;
+        }
+      }
+    });
+
+    // panel enter animations
+    panels.forEach((p, i) => {
+      const vis = p.querySelector('.visual img');
+      gsap.fromTo(vis, { scale: 1.2 }, {
+        scale: 1, ease: 'none',
+        scrollTrigger: {
+          containerAnimation: st.animation, // not available for ST.create, so fallback scrub bound:
+          trigger: p, start: 'left center', end: 'right center', scrub: true, horizontal: true
+        }
+      });
+    });
+  }
+
+  /* ---------- COUNTER ---------- */
+  document.querySelectorAll('.count').forEach((el) => {
+    const to = parseFloat(el.dataset.to || '0');
+    const isInt = Number.isInteger(to);
+    const obj = { v: 0 };
+    gsap.to(obj, {
+      v: to, duration: 2.2, ease: 'expo.out',
+      onUpdate() { el.textContent = isInt ? Math.round(obj.v).toLocaleString('id-ID') : obj.v.toFixed(1); },
+      scrollTrigger: { trigger: el, start: 'top 85%', once: true }
+    });
+  });
+
+  /* ---------- FACILITIES HOVER TILT ---------- */
+  document.querySelectorAll('.fac .card').forEach((card) => {
+    const img = card.querySelector('img');
+    card.addEventListener('pointermove', (e) => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      gsap.to(img, { x: x * 20, y: y * 20, rotateX: -y * 6, rotateY: x * 6, transformPerspective: 800, duration: 0.6, ease: 'power3.out' });
+    });
+    card.addEventListener('pointerleave', () => {
+      gsap.to(img, { x: 0, y: 0, rotateX: 0, rotateY: 0, duration: .8, ease: 'expo.out' });
+    });
+  });
+
+  /* ---------- QUOTE MARK PARALLAX ---------- */
+  gsap.to('.quote .mark', {
+    yPercent: -40, ease: 'none',
+    scrollTrigger: { trigger: '.quote', start: 'top bottom', end: 'bottom top', scrub: true }
+  });
+
+  /* ---------- GIANT FOOTER TEXT ---------- */
+  const giant = document.getElementById('giantText');
+  if (giant) {
+    gsap.fromTo(giant, { xPercent: 20 }, {
+      xPercent: -20, ease: 'none',
+      scrollTrigger: { trigger: 'footer', start: 'top bottom', end: 'bottom bottom', scrub: true }
+    });
+  }
+
+  /* ---------- Refresh after images load ---------- */
+  addEventListener('load', () => ScrollTrigger.refresh());
+})();
+</script>
+</body>
+</html>
